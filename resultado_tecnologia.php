@@ -11,11 +11,11 @@
 
     <?php
     $gabarito = [
-        "q1" => "c", // A alternativa correta é 34
-        "q2" => "c", // A alternativa correta é 39
-        "q3" => "c", // A alternativa correta é 64
-        "q4" => "a", // A alternativa correta é 37,5°
-        "q5" => "a" // A alternativa correta é João R$12,00; Maria R$6,00; Ana R$18,00
+        "q1" => "c", // A alternativa correta é Apple
+        "q2" => "a", // A alternativa correta é Central Processing Unit
+        "q3" => "b", // A alternativa correta é Blockchain
+        "q4" => "b", // A alternativa correta é Dispositivos físicos conectados à internet, trocando dados automaticamente
+        "q5" => "b" // A alternativa correta é Kotlin
     ];
     
     $pontos = 0;
@@ -37,7 +37,7 @@
     }
 
     ?>
-    <a href="quiz_matematica.php">Tentar novamente</a>
+    <a href="quiz_tecnologia.php">Tentar novamente</a>
     <a href="quiz.php">Escolher outro Quiz</a>
 
 </body>

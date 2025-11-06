@@ -39,7 +39,7 @@ if (!isset($_SESSION['usuario_id'])) {
             <h2>Quiz de Matemática</h2>
             <p>Operações Básicas, lógica e raciocínio numérico.</p>
             <div>
-                <a href="quiz_matematica">Começar</a>
+                <a href="quiz_matematica.php">Começar</a>
             </div>
         </div>
     </div>

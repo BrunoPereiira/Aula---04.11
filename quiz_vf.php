@@ -9,7 +9,7 @@
     <body>
         <h1>Quiz - Velozes e Furiosos</h1>
 
-        <form action="resultado.php" method="POST">
+        <form action="resultado_vf.php" method="POST">
             <h3>1) Qual carro clássico Dominic Toretto dirige em várias partes da franquia?</h3>
             <input type="radio" name="q1" value="a"> Nissan Skyline GT-R <br>
             <input type="radio" name="q1" value="b"> Dodge Charger R/T 1970 <br>

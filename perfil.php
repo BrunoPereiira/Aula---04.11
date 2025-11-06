@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuario_id'])) {
 $userId = (int) $_SESSION['usuario_id'];
 $msg = "";
 
-$stmt = $conn -> prepare("SELECT id, nome, email, senha FROM usuarios WHERE id = ? LIMIT 1");
+$stmt = $conn -> prepare("SELECT id, nome, email, senha, foto_perfil FROM usuarios WHERE id = ? LIMIT 1");
 $stmt -> bind_param("i", $userId);
 $stmt -> execute();
 $result = $stmt -> get_result();
@@ -24,6 +24,43 @@ if (!$result || !$result -> num_rows) {
 
 $user = $result -> fetch_assoc();
 $stmt -> close();
+
+// Configuração para armazenamento de fotos --
+$dirUplouds = __DIR__ . '/uplouds/avatars';
+$urlBase = 'uplouds/avatars/'; // É a mesma coisa de colocar img src=""
+$tamanhoMaximo = 2 * 1024 * 1024;
+$tiposExtensao = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+
+// -- Limpeza de cache de armazenamento de fotos
+function limparArquivoAntigo(?string $caminhoRelativo): void {
+    if (!$caminhoRelativo) return;
+    $arquivo = __DIR__ . "/" . $caminhoRelativo;
+    if (is_file($arquivo)) {
+        @unlink($arquivo);
+    }
+}
+
+$feedback = null;
+
+// Envio de foto
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'uploud') {
+    if (!isset($_FILES['foto']) || $_FILES['foto']['error'] !== UPLOUD_ERR_OK) {
+        $feedback = ['tipo' => 'erro', 'msg' => 'Falha no Uploud. Selecione um arquivo válido.'];
+    } else {
+        $foto = $_FILES['foto'];
+
+    // Validaçõo do tipo da foto
+    $mime = mime_content_type($foto['tmp_name']);
+    if (!isset($tiposExtensao[$mime])) {
+        $feedback = ['tipo' => 'erro', 'msg' => 'Formato inválido. Envie arquivo com formato JPG, PNG ou WEBP.'];
+    } elseif ($foto['size'] > $tamanhoMaximo) {
+        $feedback = ['tipo' => 'erro', 'msg' => 'Arquivo muito grande (máx. 2 MB.'];
+    } else {
+
+    }
+
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novoNome = trim($_POST['nome'] ?? $user['nome']);
